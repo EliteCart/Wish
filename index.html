@@ -17,12 +17,9 @@ body{display:flex;align-items:center;justify-content:center;background:linear-gr
 .primary-btn[disabled]{opacity:0.6}
 .wish-name{font-size:clamp(20px,5.5vw,36px);font-weight:800;margin-top:8px;text-shadow:0 6px 18px rgba(0,0,0,0.45);}
 .wish-message{font-size:clamp(14px,4.2vw,20px);margin-top:6px;color:#fffdf2;line-height:1.4;text-shadow:0 4px 12px rgba(0,0,0,0.35);}
-.share-row{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px;flex-wrap:wrap}
-.share-url{display:block;margin-top:10px;padding:8px 10px;border-radius:8px;background:rgba(0,0,0,0.25);font-size:13px;color:#fff;word-break:break-all;}
 .visuals-layer{position:fixed;inset:0;z-index:1;pointer-events:none;}
 .ad-banner{position:fixed;bottom:8px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(0,0,0,0.45);padding:8px 12px;border-radius:10px;color:#fff;font-size:13px;}
 .reward-note{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(255,215,0,0.95);padding:8px 12px;border-radius:10px;color:#000;font-weight:700;display:none;}
-.hidden{display:none;}
 </style>
 </head>
 <body>
@@ -40,10 +37,7 @@ body{display:flex;align-items:center;justify-content:center;background:linear-gr
       <button id="generateBtn" class="primary-btn">🌟 Wish Generate करें</button>
     </div>
     <div id="afterArea" class="hidden" style="margin-top:8px">
-      <div class="share-row">
-        <button id="shareBtn" class="primary-btn">🔗 Share Wish (Image + Link)</button>
-      </div>
-      <div id="shareUrlBlock" class="share-url hidden"></div>
+      <button id="shareBtn" class="primary-btn">🔗 Share Wish</button>
     </div>
   </div>
 </div>
@@ -54,18 +48,13 @@ body{display:flex;align-items:center;justify-content:center;background:linear-gr
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
-/* ----------- Particle + Color Blast + Confetti ------------- */
-const visuals = document.getElementById('visuals');
+/* Particle + Color Blast */
+const visuals=document.getElementById('visuals');
 function randomColor(){ return `hsl(${Math.random()*360},100%,60%)`; }
 function createParticle(x,y,size,color){
   const el=document.createElement('div');
-  Object.assign(el.style,{
-    position:'absolute',left:(x-size/2)+'px',top:(y-size/2)+'px',width:size+'px',height:size+'px',
-    borderRadius:'50%',background:color,pointerEvents:'none',zIndex:1,
-    animation:`particleAnim ${1000+Math.random()*800}ms ease-out forwards`
-  });
-  visuals.appendChild(el);
-  setTimeout(()=>el.remove(),2000);
+  Object.assign(el.style,{position:'absolute',left:(x-size/2)+'px',top:(y-size/2)+'px',width:size+'px',height:size+'px',borderRadius:'50%',background:color,pointerEvents:'none',zIndex:1,animation:`particleAnim ${1000+Math.random()*800}ms ease-out forwards`});
+  visuals.appendChild(el); setTimeout(()=>el.remove(),2000);
 }
 const styleEl=document.createElement('style');
 styleEl.textContent=`@keyframes particleAnim{0%{transform:translateY(0) scale(1);opacity:1;}100%{transform:translateY(-120vh) scale(0.2);opacity:0;}}`;
@@ -73,7 +62,7 @@ document.head.appendChild(styleEl);
 setInterval(()=>{for(let i=0;i<8;i++) createParticle(Math.random()*window.innerWidth,window.innerHeight+10,8+Math.random()*12,randomColor());},150);
 setInterval(()=>{for(let i=0;i<10;i++) createParticle(Math.random()*window.innerWidth,Math.random()*window.innerHeight,10+Math.random()*15,randomColor());},2500);
 
-/* ---------------- App Logic ---------------- */
+/* App Logic */
 const generateBtn=document.getElementById('generateBtn');
 const shareBtn=document.getElementById('shareBtn');
 const nameInput=document.getElementById('nameInput');
@@ -82,39 +71,16 @@ const afterArea=document.getElementById('afterArea');
 const wishTop=document.getElementById('wishTop');
 const wishNameEl=document.getElementById('wishName');
 const wishMessageEl=document.getElementById('wishMessage');
-const shareUrlBlock=document.getElementById('shareUrlBlock');
 const rewardNote=document.getElementById('rewardNote');
 
-function makeShareableUrl(namePlain){
-  const base=window.location.href.split('?')[0];
-  return `${base}?name=${encodeURIComponent(namePlain)}`;
-}
-
-window.addEventListener('load', ()=>{
-  const p=new URLSearchParams(window.location.search);
-  const sharedName=p.get('name');
-  if(sharedName){
-    wishNameEl.textContent=`💁‍♂ ${sharedName} की ओर से शुभ दीपावली 🌟`;
-    wishTop.classList.remove('hidden');
-    inputArea.style.display='none';
-    afterArea.classList.remove('hidden');
-    shareUrlBlock.classList.remove('hidden');
-    shareUrlBlock.textContent=makeShareableUrl(sharedName);
-  }
-});
-
-generateBtn.addEventListener('click', ()=>{
+generateBtn.addEventListener('click',()=>{
   const nm=nameInput.value.trim();
   if(!nm){ alert('कृपया अपना नाम लिखें'); nameInput.focus(); return; }
   wishNameEl.textContent=`💁‍♂ ${nm} की ओर से शुभ दीपावली 🌟`;
-  wishTop.classList.remove('hidden');
-  inputArea.style.display='none';
-  afterArea.classList.remove('hidden');
-  shareUrlBlock.classList.remove('hidden');
-  shareUrlBlock.textContent=makeShareableUrl(nm);
+  wishTop.classList.remove('hidden'); inputArea.style.display='none'; afterArea.classList.remove('hidden');
 });
 
-/* --------------- Server-less Imgur Upload + WhatsApp Share ---------------- */
+/* Share Function */
 async function shareWish(){
   shareBtn.disabled=true; shareBtn.textContent='Preparing...';
   try{
@@ -124,22 +90,17 @@ async function shareWish(){
     const formData=new FormData();
     formData.append('image',blob);
     const resp=await fetch('https://api.imgur.com/3/image',{
-      method:'POST',
-      headers:{Authorization:`Client-ID ${clientId}`},
-      body:formData
+      method:'POST', headers:{Authorization:`Client-ID ${clientId}`}, body:formData
     });
     const data=await resp.json();
     if(!data.success) throw new Error('Upload failed');
     const imageUrl=data.data.link;
-    const nameText=wishNameEl.textContent;
-    const wishText=wishMessageEl.innerText;
-    const waText=encodeURIComponent(`${nameText}\n${wishText}\n\n${imageUrl}`);
+    const waText=encodeURIComponent(`${wishNameEl.textContent}\n${wishMessageEl.innerText}\n\n${imageUrl}`);
     const waUrl=`https://wa.me/?text=${waText}`;
-    window.open(waUrl,'_blank');
-    rewardNote.style.display='block';
+    window.open(waUrl,'_blank'); rewardNote.style.display='block';
     setTimeout(()=>rewardNote.style.display='none',3000);
   }catch(e){console.error(e);alert('Share failed, check console');}
-  finally{shareBtn.disabled=false;shareBtn.textContent='🔗 Share Wish (Image + Link)';}
+  finally{shareBtn.disabled=false;shareBtn.textContent='🔗 Share Wish';}
 }
 shareBtn.addEventListener('click',shareWish);
 </script>
