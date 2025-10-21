@@ -1,265 +1,107 @@
 <!doctype html>
 <html lang="hi">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>💥 शुभ दीपावली 💥</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root { --bg1:#ff9a9e; --bg2:#fad0c4; --bg3:#a18cd1; --bg4:#fbc2eb; }
-  html,body{height:100%;margin:0;padding:0;overflow:hidden;font-family:'Poppins',system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;}
-  body{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(-45deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4));
-    background-size:400% 400%;
-    animation:grad 14s ease infinite;
-    -webkit-tap-highlight-color: transparent;
-  }
-  @keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-
-  /* container fixed to viewport (no scrolling) */
-  .wrap{
-    width:100%;
-    max-width:380px;
-    height:100vh;
-    box-sizing:border-box;
-    padding:18px;
-    position:relative;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    gap:12px;
-  }
-
-  .card {
-    width:100%;
-    background:rgba(0,0,0,0.06);
-    border-radius:14px;
-    padding:14px;
-    box-sizing:border-box;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    text-align:center;
-    color:#fff;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-  }
-
-  .name-input{
-    width:100%; max-width:320px;
-    padding:12px 14px;
-    border-radius:12px;
-    border:none;
-    outline:none;
-    font-size:16px;
-    background:rgba(255,255,255,0.08);
-    color:#fff;
-    box-sizing:border-box;
-  }
-
-  .primary-btn{
-    width:100%;
-    max-width:320px;
-    padding:12px 14px;
-    border-radius:12px;
-    border:none;
-    font-weight:700;
-    background:linear-gradient(90deg,#ff6f00,#ff0080);
-    color:#fff;
-    font-size:16px;
-    cursor:pointer;
-  }
-  .primary-btn:active{transform:translateY(1px)}
-  .primary-btn[disabled]{opacity:0.6;cursor:not-allowed}
-
-  .wish-name{font-size:clamp(20px,5.5vw,36px); font-weight:800; margin-top:8px; text-shadow:0 6px 18px rgba(0,0,0,0.45);}
-  .wish-message{font-size:clamp(14px,4.2vw,20px); margin-top:6px; color:#fffdf2; line-height:1.4; text-shadow:0 4px 12px rgba(0,0,0,0.35);}
-
-  /* share/link area */
-  .share-row{display:flex; gap:8px; align-items:center; justify-content:center; margin-top:10px; flex-wrap:wrap}
-  .share-small{padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.08);color:#fff;border:none;font-weight:700;cursor:pointer}
-  .share-url{display:block;margin-top:10px;padding:8px 10px;border-radius:8px;background:rgba(0,0,0,0.25);font-size:13px;color:#fff;word-break:break-all}
-
-  /* visuals (sparks/blasts/etc will be appended to body) ensure they are behind UI */
-  .visuals-layer{position:fixed;inset:0;z-index:0;pointer-events:none}
-
-  /* ad banner */
-  .ad-banner{position:fixed;bottom:8px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(0,0,0,0.45);padding:8px 12px;border-radius:10px;color:#fff;font-size:13px}
-  /* reward placeholder */
-  .reward-note{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(255,215,0,0.95);padding:8px 12px;border-radius:10px;color:#000;font-weight:700;display:none}
-
-  /* make sure UI is above visuals */
-  .ui-layer{position:relative;z-index:60}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;font-family:'Poppins',sans-serif;}
+body{display:flex;align-items:center;justify-content:center;background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#a18cd1,#fbc2eb);background-size:400% 400%;animation:grad 14s ease infinite;}
+@keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.wrap{width:100%;max-width:380px;height:100vh;padding:18px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;position:relative;z-index:2;box-sizing:border-box;}
+.card{width:100%;background:rgba(0,0,0,0.06);border-radius:14px;padding:14px;backdrop-filter: blur(6px);text-align:center;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.18);}
+.name-input{width:100%;max-width:320px;padding:12px 14px;border-radius:12px;border:none;outline:none;font-size:16px;background:rgba(255,255,255,0.08);color:#fff;}
+.primary-btn{width:100%;max-width:320px;padding:12px 14px;border-radius:12px;border:none;font-weight:700;background:linear-gradient(90deg,#ff6f00,#ff0080);color:#fff;font-size:16px;cursor:pointer;}
+.primary-btn:active{transform:translateY(1px)}
+.primary-btn[disabled]{opacity:0.6}
+.wish-name{font-size:clamp(20px,5.5vw,36px);font-weight:800;margin-top:8px;text-shadow:0 6px 18px rgba(0,0,0,0.45);}
+.wish-message{font-size:clamp(14px,4.2vw,20px);margin-top:6px;color:#fffdf2;line-height:1.4;text-shadow:0 4px 12px rgba(0,0,0,0.35);}
+.share-row{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.share-url{display:block;margin-top:10px;padding:8px 10px;border-radius:8px;background:rgba(0,0,0,0.25);font-size:13px;color:#fff;word-break:break-all;}
+.visuals-layer{position:fixed;inset:0;z-index:1;pointer-events:none;}
+.ad-banner{position:fixed;bottom:8px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(0,0,0,0.45);padding:8px 12px;border-radius:10px;color:#fff;font-size:13px;}
+.reward-note{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(255,215,0,0.95);padding:8px 12px;border-radius:10px;color:#000;font-weight:700;display:none;}
+.hidden{display:none;}
 </style>
 </head>
 <body>
 
 <div class="wrap">
-  <div class="card ui-layer" id="uiCard">
+  <div class="card" id="uiCard">
     <div style="font-size:14px;font-weight:700;margin-bottom:8px">🌟 शुभ दीपावली 🌟</div>
-
-    <!-- top: wish (initially hidden until generated) -->
-    <div id="wishTop" style="display:none">
-      <div class="wish-name" id="wishName"> </div>
+    <div id="wishTop" class="hidden">
+      <div class="wish-name" id="wishName"></div>
       <div class="wish-message" id="wishMessage">माता लक्ष्मी आपके घर में<br>सोना, चांदी और स्वास्थ्य लेकर आएँ!<br>🙏🪔 शुभ दीपावली 🪔🙏</div>
     </div>
-
-    <!-- input + single generate button -->
     <div id="inputArea">
       <input id="nameInput" class="name-input" placeholder="अपना नाम लिखें..." inputmode="text" />
       <div style="height:8px"></div>
       <button id="generateBtn" class="primary-btn">🌟 Wish Generate करें</button>
     </div>
-
-    <!-- after generate: show only share button + link (single primary action remains) -->
-    <div id="afterArea" style="display:none; margin-top:8px">
+    <div id="afterArea" class="hidden" style="margin-top:8px">
       <div class="share-row">
         <button id="shareBtn" class="primary-btn">🔗 Share Wish (Image + Link)</button>
       </div>
-      <div id="shareUrlBlock" class="share-url" style="display:none"></div>
-      <div style="height:6px"></div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.9)">Click the Share button → We'll try to attach image + link together.</div>
+      <div id="shareUrlBlock" class="share-url hidden"></div>
     </div>
   </div>
 </div>
 
-<!-- visuals layer (append sparks/blasts/etc here) -->
 <div class="visuals-layer" id="visuals"></div>
-
-<!-- ad + reward placeholders -->
-<div class="ad-banner" id="adBanner">Banner Ad Placeholder</div>
+<div class="ad-banner">Banner Ad Placeholder</div>
 <div class="reward-note" id="rewardNote">🎁 You earned 100 points!</div>
 
-<!-- html2canvas for screenshot -->
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-
 <script>
-/* -------------------------
-   Visual Effects Setup
-   -------------------------*/
+/* ---------------- Color Blast + Spark + Confetti ---------------- */
 const visuals = document.getElementById('visuals');
 
-// create sparks
-for(let i=0;i<28;i++){
-  const s = document.createElement('div');
-  s.className='spark';
-  Object.assign(s.style,{
+function createParticle(x, y, color, size, lifespan, type='circle'){
+  const el = document.createElement('div');
+  Object.assign(el.style,{
     position:'absolute',
-    width:'6px', height:'6px',
-    borderRadius:'50%',
-    background:'rgba(255,255,255,0.9)',
-    left: (Math.random()*100) + 'vw',
-    top: (Math.random()*100) + 'vh',
-    opacity: 0.9,
-    transform: 'translateY(0)',
-    zIndex: 1
+    left: (x-size/2)+'px',
+    top: (y-size/2)+'px',
+    width: size+'px',
+    height: size+'px',
+    borderRadius: type==='circle'?'50%':'0%',
+    background:color,
+    pointerEvents:'none',
+    zIndex:1,
+    animation:`particleAnim ${lifespan}ms ease-out forwards`,
   });
-  s.style.animation = Math.random()*2+2 + 's sparkAnim linear infinite';
-  visuals.appendChild(s);
+  visuals.appendChild(el);
+  setTimeout(()=>el.remove(), lifespan+50);
 }
 
-// add keyframes dynamically so animations run even if reused
+/* Particle keyframes */
 const styleEl = document.createElement('style');
-styleEl.textContent = `
-@keyframes sparkAnim { 0%{transform:translateY(0) scale(1); opacity:1} 100%{transform:translateY(-120vh) scale(0.2); opacity:0} }
-@keyframes blastAnim {0%{transform:scale(0); opacity:0.85} 80%{transform:scale(2); opacity:0.5} 100%{transform:scale(3); opacity:0}}
-@keyframes lanternFloat {0%{transform:translateY(110vh) translateX(0) rotate(0deg)}100%{transform:translateY(-10vh) translateX(40px) rotate(360deg)}}
-@keyframes fireflyMove {0%{opacity:0}50%{opacity:1}100%{opacity:0}}
-@keyframes diyaFlicker {0%{transform:scaleY(0.95); opacity:0.7}100%{transform:scaleY(1.05); opacity:1}}
-`;
+styleEl.textContent=`
+@keyframes particleAnim{
+  0%{transform:translateY(0) scale(1);opacity:1;}
+  100%{transform:translateY(-120vh) scale(0.2);opacity:0;}
+}`;
 document.head.appendChild(styleEl);
 
-// color blast generator (centered random)
-function createColorBlast(cx, cy, count=12, lifespan=1000){
+function randomColor(){ return `hsl(${Math.random()*360},100%,60%)`; }
+setInterval(()=>{
+  for(let i=0;i<8;i++){
+    createParticle(Math.random()*window.innerWidth, window.innerHeight+10, randomColor(), 8+Math.random()*12, 1800);
+  }
+},150);
+
+function createBlast(cx, cy, count=12, lifespan=1000){
   for(let i=0;i<count;i++){
-    const b = document.createElement('div');
-    Object.assign(b.style,{
-      position:'absolute',
-      left: (cx + (Math.random()*80-40)) + 'px',
-      top: (cy + (Math.random()*80-40)) + 'px',
-      width: '18px',
-      height: '18px',
-      borderRadius: '50%',
-      zIndex: 1,
-      pointerEvents: 'none',
-      background: `hsl(${Math.random()*360},100%,60%)`,
-      animation: 'blastAnim 900ms ease-out forwards'
-    });
-    visuals.appendChild(b);
-    setTimeout(()=>{ b.remove(); }, lifespan);
+    const size = 10 + Math.random()*18;
+    createParticle(cx+Math.random()*80-40, cy+Math.random()*80-40, randomColor(), size, lifespan);
   }
 }
-
-// periodic random blasts for lively background
 setInterval(()=>{
-  const x = Math.random()*window.innerWidth;
-  const y = Math.random()*window.innerHeight;
-  createColorBlast(x,y,10,1200);
-}, 2200);
+  createBlast(Math.random()*window.innerWidth, Math.random()*window.innerHeight, 10, 1000);
+}, 2500);
 
-// floating lanterns
-for(let i=0;i<10;i++){
-  const l = document.createElement('div');
-  Object.assign(l.style,{
-    position:'absolute',
-    left: (Math.random()*100) + 'vw',
-    top: '100vh',
-    width: (8 + Math.random()*12) + 'px',
-    height: (14 + Math.random()*20) + 'px',
-    borderRadius:'6px',
-    background: 'rgba(255,160,60,0.95)',
-    zIndex:1,
-    pointerEvents:'none',
-    transformOrigin:'center',
-    animation: (8+Math.random()*8) + 's lanternFloat linear infinite',
-    opacity: 0.85
-  });
-  visuals.appendChild(l);
-}
-
-// fireflies
-for(let i=0;i<18;i++){
-  const f = document.createElement('div');
-  Object.assign(f.style,{
-    position:'absolute',
-    left: (Math.random()*100) + 'vw',
-    top: (Math.random()*100) + 'vh',
-    width:'5px',
-    height:'5px',
-    borderRadius:'50%',
-    background:'yellow',
-    zIndex:1,
-    pointerEvents:'none',
-    animation: (1+Math.random()*2) + 's fireflyMove ease-in-out infinite alternate',
-    opacity: 0.6
-  });
-  visuals.appendChild(f);
-}
-
-// diyas (subtle)
-for(let i=0;i<8;i++){
-  const d = document.createElement('div');
-  Object.assign(d.style,{
-    position:'absolute',
-    left: (5 + i*11) + '%',
-    bottom: '10px',
-    width:'10px',
-    height:'12px',
-    borderRadius:'6px 6px 4px 4px',
-    background:'rgba(255,140,0,0.95)',
-    boxShadow:'0 0 12px rgba(255,140,0,0.75)',
-    zIndex:1,
-    pointerEvents:'none',
-    animation: 'diyaFlicker ' + (0.9 + Math.random()*0.6) + 's infinite alternate'
-  });
-  visuals.appendChild(d);
-}
-
-/* -------------------------
-   App Logic: Generate / Share
-   -------------------------*/
+/* ---------------- App logic ---------------- */
 const generateBtn = document.getElementById('generateBtn');
 const shareBtn = document.getElementById('shareBtn');
 const nameInput = document.getElementById('nameInput');
@@ -272,147 +114,58 @@ const shareUrlBlock = document.getElementById('shareUrlBlock');
 const rewardNote = document.getElementById('rewardNote');
 
 function makeShareableUrl(namePlain){
-  // we will store only the raw name (no HTML) in the URL
   const base = window.location.href.split('?')[0];
   return `${base}?name=${encodeURIComponent(namePlain)}`;
 }
 
-function readNameFromURL(){
-  try{
-    const p = new URLSearchParams(window.location.search);
-    const raw = p.get('name');
-    return raw ? raw : null;
-  }catch(e){ return null; }
-}
-
-/* load from URL (if someone opened shared link) */
 window.addEventListener('load', ()=>{
-  const sharedName = readNameFromURL();
+  const p = new URLSearchParams(window.location.search);
+  const sharedName = p.get('name');
   if(sharedName){
-    // show wish immediately
-    wishNameEl.textContent = sharedName;
-    wishTop.style.display = 'block';
-    inputArea.style.display = 'none';
-    afterArea.style.display = 'block';
-    shareUrlBlock.style.display = 'block';
+    wishNameEl.textContent = `💁‍♂ ${sharedName} की ओर से शुभ दीपावली 🌟`;
+    wishTop.classList.remove('hidden');
+    inputArea.style.display='none';
+    afterArea.classList.remove('hidden');
+    shareUrlBlock.classList.remove('hidden');
     shareUrlBlock.textContent = makeShareableUrl(sharedName);
-    // initial big blast to indicate arrival
-    const cx = window.innerWidth/2, cy = window.innerHeight/3;
-    createColorBlast(cx, cy, 22, 1400);
+    createBlast(window.innerWidth/2, window.innerHeight/3, 22, 1400);
   }
 });
 
-/* generate wish: show UI, produce small visual burst */
 generateBtn.addEventListener('click', ()=>{
   const nm = nameInput.value.trim();
   if(!nm){ alert('कृपया अपना नाम लिखें'); nameInput.focus(); return; }
-
   wishNameEl.textContent = `💁‍♂ ${nm} की ओर से शुभ दीपावली 🌟`;
-  wishTop.style.display = 'block';
-  inputArea.style.display = 'none';
-  afterArea.style.display = 'block';
-
-  const shareable = makeShareableUrl(nm);
-  shareUrlBlock.style.display = 'block';
-  shareUrlBlock.textContent = shareable;
-
-  // visual celebration
-  createColorBlast(window.innerWidth/2, window.innerHeight/3, 26, 1400);
-  // tiny confetti-like sparks
-  for(let i=0;i<8;i++){
-    createColorBlast(window.innerWidth/2 + (Math.random()*200-100), window.innerHeight/3 + (Math.random()*120-60), 6, 900);
-  }
+  wishTop.classList.remove('hidden');
+  inputArea.style.display='none';
+  afterArea.classList.remove('hidden');
+  shareUrlBlock.classList.remove('hidden');
+  shareUrlBlock.textContent = makeShareableUrl(nm);
+  createBlast(window.innerWidth/2, window.innerHeight/3, 26, 1400);
 });
 
-/* Share logic:
-   1) capture screenshot of .wrap/ui card area (we choose #uiCard)
-   2) convert to blob -> File
-   3) try navigator.canShare({files: [file]}) and navigator.share({files, title, text, url})
-   4) fallback: download image & open whatsapp share window with text+url and copy link to clipboard
-*/
-async function shareWithImageAndLink(){
-  // disable share button briefly
-  shareBtn.disabled = true;
-  shareBtn.textContent = 'Preparing...';
-
+/* ---------------- Server-less Imgur + WhatsApp ---------------- */
+async function shareWish(){
+  shareBtn.disabled=true; shareBtn.textContent='Preparing...';
   try{
-    // capture the *visible* UI area (wishContainer) as image
-    const container = document.getElementById('wishContainer');
-    const canvas = await html2canvas(container, {useCORS:true, allowTaint:true, scale: Math.min(2, window.devicePixelRatio || 1)});
-    // convert to blob
-    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 0.95));
-    const file = new File([blob], 'DiwaliWish.png', { type: 'image/png' });
-
-    // construct share text & url
-    const nameText = wishNameEl.textContent || '';
-    const wishText = wishMessageEl.innerText || '';
-    const shareUrl = makeShareableUrl( decodeURIComponent(nameText) );
-    const shareText = `${nameText}\n\n${wishText}\n\n${shareUrl}`;
-
-    // If Web Share API supports files, use it (mobile Chrome supports)
-    if(navigator.canShare && navigator.canShare({ files: [file] })){
-      await navigator.share({
-        files: [file],
-        title: 'Shubh Diwali',
-        text: shareText,
-        url: shareUrl
-      });
-      // optionally show reward note
-      showRewardNote();
-    } else {
-      // fallback behavior:
-      // 1) Save image locally (trigger download)
-      // 2) Copy link to clipboard and open whatsapp web share with text+link
-      const dataUrl = canvas.toDataURL('image/png');
-      // trigger download
-      const a = document.createElement('a');
-      a.href = dataUrl;
-      a.download = 'DiwaliWish.png';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-
-      // copy link to clipboard
-      try{ await navigator.clipboard.writeText(shareUrl); } catch(e){ /* ignore */ }
-
-      // open WhatsApp share (text+link). Note: image can't be attached via URL for whatsapp web automatically.
-      const waText = encodeURIComponent(`${nameText}\n\n${wishText}\n\n${shareUrl}`);
-      const waUrl = `https://wa.me/?text=${waText}`;
-      // open in new tab
-      window.open(waUrl, '_blank');
-
-      alert('Image downloaded to your device. Link copied to clipboard. अब आप WhatsApp में जाकर image attach कर सकते हैं और link paste कर दें।');
-    }
-  }catch(err){
-    console.error('Share failed', err);
-    alert('Share करते समय समस्या आई — कृपया मैन्युअली image डाउनलोड करके link शेयर करें।');
-  }finally{
-    shareBtn.disabled = false;
-    shareBtn.textContent = '🔗 Share Wish (Image + Link)';
-  }
-}
-
-shareBtn?.addEventListener('click', shareWithImageAndLink);
-
-/* reward note display helper */
-function showRewardNote(){
-  rewardNote.style.display = 'block';
-  setTimeout(()=>{ rewardNote.style.display = 'none'; }, 3000);
-}
-
-/* Touch interaction: tap to spawn local mini blasts */
-document.addEventListener('touchstart', function(ev){
-  try{
-    const t = ev.touches[0];
-    const x = t.clientX, y = t.clientY;
-    for(let i=0;i<8;i++){
-      createColorBlast(x + (Math.random()*80-40), y + (Math.random()*80-40), 6, 900);
-    }
-  }catch(e){}
-}, {passive:true});
-
-/* Prevent page from scrolling on mobile */
-document.addEventListener('touchmove', function(e){ e.preventDefault(); }, {passive:false});
-</script>
-</body>
-</html>
+    const canvas = await html2canvas(document.getElementById('uiCard'));
+    const blob = await new Promise(res=>canvas.toBlob(res,'image/png'));
+    const clientId = 'YOUR_IMGUR_CLIENT_ID'; // Replace with your Imgur client id
+    const formData = new FormData();
+    formData.append('image', blob);
+    const resp = await fetch('https://api.imgur.com/3/image', {
+      method:'POST',
+      headers:{Authorization:`Client-ID ${clientId}`},
+      body: formData
+    });
+    const data = await resp.json();
+    if(!data.success) throw new Error('Upload failed');
+    const imageUrl = data.data.link;
+    const nameText = wishNameEl.textContent;
+    const wishText = wishMessageEl.innerText;
+    const waText = encodeURIComponent(`${nameText}\n${wishText}\n\n${imageUrl}`);
+    const waUrl = `https://wa.me/?text=${waText}`;
+    window.open(waUrl,'_blank');
+    rewardNote.style.display='block';
+    setTimeout(()=>rewardNote.style.display='none',3000);
+    createBlast(window.innerWidth/
