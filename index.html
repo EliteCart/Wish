@@ -7,9 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 html,body{margin:0;padding:0;height:100%;overflow:hidden;font-family:'Poppins',sans-serif;background:#000;}
-.bg-video{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.5);}
+.bg-video{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.4);}
 .wrap{width:100%;max-width:380px;height:100vh;padding:18px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;position:relative;z-index:2;box-sizing:border-box;}
-.card{width:100%;background:rgba(0,0,0,0.06);border-radius:14px;padding:14px;backdrop-filter: blur(6px);text-align:center;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.18);}
+.card{width:100%;background:rgba(0,0,0,0.12);border-radius:14px;padding:14px;backdrop-filter: blur(6px);text-align:center;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.18);}
 .name-input{width:100%;max-width:320px;padding:12px 14px;border-radius:12px;border:none;outline:none;font-size:16px;background:rgba(255,255,255,0.08);color:#fff;}
 .primary-btn{width:100%;max-width:320px;padding:12px 14px;border-radius:12px;border:none;font-weight:700;background:linear-gradient(90deg,#ff6f00,#ff0080);color:#fff;font-size:16px;cursor:pointer;transition:transform 0.2s;}
 .primary-btn:active{transform:scale(0.97);}
@@ -18,21 +18,19 @@ html,body{margin:0;padding:0;height:100%;overflow:hidden;font-family:'Poppins',s
 .wish-message{font-size:clamp(14px,4.2vw,20px);margin-top:6px;color:#fffdf2;line-height:1.4;text-shadow:0 0 6px #fff,0 0 12px #ff0;}
 @keyframes floatText{0%{transform:translateY(0px) rotateZ(0deg);}50%{transform:translateY(-6px) rotateZ(2deg);}100%{transform:translateY(0px) rotateZ(0deg);}}
 .visuals-layer{position:fixed;inset:0;z-index:1;pointer-events:none;}
-.ad-banner{position:fixed;bottom:8px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(0,0,0,0.45);padding:8px 12px;border-radius:10px;color:#fff;font-size:13px;}
 .reward-note{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(255,215,0,0.95);padding:8px 12px;border-radius:10px;color:#000;font-weight:700;display:none;}
-.volume-control{position:fixed;top:12px;right:12px;z-index:60;}
 </style>
 </head>
 <body>
 
 <video class="bg-video" autoplay muted loop playsinline>
-  <source src="/bg-video.mp4" type="video/mp4">
+  <source src="https://pin.it/2vqGHfzLu" type="video/mp4">
 </video>
 
 <div class="wrap">
   <div class="card" id="uiCard">
     <div style="font-size:14px;font-weight:700;margin-bottom:8px">🌟 शुभ दीपावली 🌟</div>
-    <div id="wishTop" class="hidden">
+    <div id="wishTop" style="display:none">
       <div class="wish-name" id="wishName"></div>
       <div class="wish-message" id="wishMessage">माता लक्ष्मी आपके घर में<br>सोना, चांदी और स्वास्थ्य लेकर आएँ!<br>🙏🪔 शुभ दीपावली 🪔🙏</div>
     </div>
@@ -41,20 +39,18 @@ html,body{margin:0;padding:0;height:100%;overflow:hidden;font-family:'Poppins',s
       <div style="height:8px"></div>
       <button id="generateBtn" class="primary-btn">🌟 Wish Generate करें</button>
     </div>
-    <div id="afterArea" class="hidden" style="margin-top:8px">
+    <div id="afterArea" style="display:none;margin-top:8px">
       <button id="shareBtn" class="primary-btn">🔗 Share Wish</button>
     </div>
   </div>
 </div>
 
 <div class="visuals-layer" id="visuals"></div>
-<div class="ad-banner">Banner Ad Placeholder</div>
-<div class="reward-note" id="rewardNote">🎁 You earned 100 points!</div>
+<div class="reward-note" id="rewardNote">🎁 आप 100 पॉइंट्स अर्जित किए!</div>
 
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
 <audio id="generateSound" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3"></audio>
 <audio id="confettiSound" src="https://www.soundjay.com/misc/sounds/crowd-cheer-01.mp3"></audio>
-<audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop autoplay></audio>
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
@@ -71,8 +67,6 @@ styleEl.textContent=`@keyframes particleAnim{0%{transform:translateY(0) scale(1)
 document.head.appendChild(styleEl);
 setInterval(()=>{for(let i=0;i<15;i++) createParticle(Math.random()*window.innerWidth,window.innerHeight+10,12+Math.random()*18,randomColor(),1000+Math.random()*800);},100);
 setInterval(()=>{for(let i=0;i<25;i++) createParticle(Math.random()*window.innerWidth,Math.random()*window.innerHeight,14+Math.random()*20,randomColor(),1200+Math.random()*900);},1500);
-function firework(){const x=Math.random()*window.innerWidth;const y=Math.random()*window.innerHeight/2;for(let i=0;i<30;i++){const angle=Math.random()*2*Math.PI;const speed=2+Math.random()*3;const px=x+Math.cos(angle)*speed*30;const py=y+Math.sin(angle)*speed*30;createParticle(px,py,6+Math.random()*6,randomColor(),1200+Math.random()*800);}}
-setInterval(firework,4000);
 
 // App logic
 const generateBtn=document.getElementById('generateBtn');
@@ -87,34 +81,25 @@ const rewardNote=document.getElementById('rewardNote');
 const clickSound=document.getElementById('clickSound');
 const generateSound=document.getElementById('generateSound');
 const confettiSound=document.getElementById('confettiSound');
-const bgMusic=document.getElementById('bgMusic');
 
 generateBtn.addEventListener('click',()=>{
   const nm=nameInput.value.trim();
   if(!nm){ alert('कृपया अपना नाम लिखें'); nameInput.focus(); return; }
   wishNameEl.textContent=`💁‍♂ ${nm} की ओर से शुभ दीपावली 🌟`;
-  wishTop.classList.remove('hidden'); inputArea.style.display='none'; afterArea.classList.remove('hidden');
+  wishTop.style.display='block'; inputArea.style.display='none'; afterArea.style.display='block';
   generateSound.play(); confettiSound.play();
 });
 
-// Share with server-side upload
+// Share (client-side, image as DataURL)
 async function shareWish(){
   clickSound.play();
   shareBtn.disabled=true; shareBtn.textContent='Preparing...';
   try{
     const canvas=await html2canvas(document.getElementById('uiCard'));
-    const blob=await new Promise(res=>canvas.toBlob(res,'image/png'));
-    const formData=new FormData();
-    formData.append('image',blob);
-    const resp=await fetch('/api/upload',{
-      method:'POST',
-      body:formData
-    });
-    const data=await resp.json();
-    if(!data.success) throw new Error('Upload failed');
-    const imageUrl=data.url;
-    const waText=encodeURIComponent(`${wishNameEl.textContent}\n${wishMessageEl.innerText}\n\n${imageUrl}`);
-    window.open(`https://wa.me/?text=${waText}`,'_blank');
+    const dataUrl=canvas.toDataURL('image/png');
+    const waText=encodeURIComponent(`${wishNameEl.textContent}\n${wishMessageEl.innerText}\n\n`);
+    const waUrl=`https://wa.me/?text=${waText}${encodeURIComponent(dataUrl)}`;
+    window.open(waUrl,'_blank');
     rewardNote.style.display='block';
     setTimeout(()=>rewardNote.style.display='none',3000);
   }catch(e){console.error(e);alert('Share failed');}
