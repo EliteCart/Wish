@@ -6,23 +6,28 @@
 <title>💥 शुभ दीपावली 💥</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-html,body{margin:0;padding:0;height:100%;overflow:hidden;font-family:'Poppins',sans-serif;}
-body{display:flex;align-items:center;justify-content:center;background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#a18cd1,#fbc2eb);background-size:400% 400%;animation:grad 14s ease infinite;}
-@keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;font-family:'Poppins',sans-serif;background:#000;}
+.bg-video{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.5);}
 .wrap{width:100%;max-width:380px;height:100vh;padding:18px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;position:relative;z-index:2;box-sizing:border-box;}
 .card{width:100%;background:rgba(0,0,0,0.06);border-radius:14px;padding:14px;backdrop-filter: blur(6px);text-align:center;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.18);}
 .name-input{width:100%;max-width:320px;padding:12px 14px;border-radius:12px;border:none;outline:none;font-size:16px;background:rgba(255,255,255,0.08);color:#fff;}
-.primary-btn{width:100%;max-width:320px;padding:12px 14px;border-radius:12px;border:none;font-weight:700;background:linear-gradient(90deg,#ff6f00,#ff0080);color:#fff;font-size:16px;cursor:pointer;}
-.primary-btn:active{transform:translateY(1px)}
-.primary-btn[disabled]{opacity:0.6}
-.wish-name{font-size:clamp(20px,5.5vw,36px);font-weight:800;margin-top:8px;text-shadow:0 6px 18px rgba(0,0,0,0.45);}
-.wish-message{font-size:clamp(14px,4.2vw,20px);margin-top:6px;color:#fffdf2;line-height:1.4;text-shadow:0 4px 12px rgba(0,0,0,0.35);}
+.primary-btn{width:100%;max-width:320px;padding:12px 14px;border-radius:12px;border:none;font-weight:700;background:linear-gradient(90deg,#ff6f00,#ff0080);color:#fff;font-size:16px;cursor:pointer;transition:transform 0.2s;}
+.primary-btn:active{transform:scale(0.97);}
+.primary-btn[disabled]{opacity:0.6;}
+.wish-name{font-size:clamp(20px,6vw,38px);font-weight:800;margin-top:8px;text-shadow:0 0 6px #fff,0 0 18px #ff0080;animation:floatText 3s ease-in-out infinite alternate;}
+.wish-message{font-size:clamp(14px,4.2vw,20px);margin-top:6px;color:#fffdf2;line-height:1.4;text-shadow:0 0 6px #fff,0 0 12px #ff0;}
+@keyframes floatText{0%{transform:translateY(0px) rotateZ(0deg);}50%{transform:translateY(-6px) rotateZ(2deg);}100%{transform:translateY(0px) rotateZ(0deg);}}
 .visuals-layer{position:fixed;inset:0;z-index:1;pointer-events:none;}
 .ad-banner{position:fixed;bottom:8px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(0,0,0,0.45);padding:8px 12px;border-radius:10px;color:#fff;font-size:13px;}
 .reward-note{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(255,215,0,0.95);padding:8px 12px;border-radius:10px;color:#000;font-weight:700;display:none;}
+.volume-control{position:fixed;top:12px;right:12px;z-index:60;}
 </style>
 </head>
 <body>
+
+<video class="bg-video" autoplay muted loop playsinline>
+  <source src="/bg-video.mp4" type="video/mp4">
+</video>
 
 <div class="wrap">
   <div class="card" id="uiCard">
@@ -46,23 +51,30 @@ body{display:flex;align-items:center;justify-content:center;background:linear-gr
 <div class="ad-banner">Banner Ad Placeholder</div>
 <div class="reward-note" id="rewardNote">🎁 You earned 100 points!</div>
 
+<audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
+<audio id="generateSound" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3"></audio>
+<audio id="confettiSound" src="https://www.soundjay.com/misc/sounds/crowd-cheer-01.mp3"></audio>
+<audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop autoplay></audio>
+
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
-/* Particle + Color Blast */
+// Particle + Spark
 const visuals=document.getElementById('visuals');
-function randomColor(){ return `hsl(${Math.random()*360},100%,60%)`; }
-function createParticle(x,y,size,color){
+function randomColor(){return `hsl(${Math.random()*360},100%,60%)`;}
+function createParticle(x,y,size,color,spd){
   const el=document.createElement('div');
-  Object.assign(el.style,{position:'absolute',left:(x-size/2)+'px',top:(y-size/2)+'px',width:size+'px',height:size+'px',borderRadius:'50%',background:color,pointerEvents:'none',zIndex:1,animation:`particleAnim ${1000+Math.random()*800}ms ease-out forwards`});
+  Object.assign(el.style,{position:'absolute',left:(x-size/2)+'px',top:(y-size/2)+'px',width:size+'px',height:size+'px',borderRadius:'50%',background:color,pointerEvents:'none',zIndex:1,animation:`particleAnim ${spd}ms ease-out forwards`});
   visuals.appendChild(el); setTimeout(()=>el.remove(),2000);
 }
 const styleEl=document.createElement('style');
 styleEl.textContent=`@keyframes particleAnim{0%{transform:translateY(0) scale(1);opacity:1;}100%{transform:translateY(-120vh) scale(0.2);opacity:0;}}`;
 document.head.appendChild(styleEl);
-setInterval(()=>{for(let i=0;i<8;i++) createParticle(Math.random()*window.innerWidth,window.innerHeight+10,8+Math.random()*12,randomColor());},150);
-setInterval(()=>{for(let i=0;i<10;i++) createParticle(Math.random()*window.innerWidth,Math.random()*window.innerHeight,10+Math.random()*15,randomColor());},2500);
+setInterval(()=>{for(let i=0;i<15;i++) createParticle(Math.random()*window.innerWidth,window.innerHeight+10,12+Math.random()*18,randomColor(),1000+Math.random()*800);},100);
+setInterval(()=>{for(let i=0;i<25;i++) createParticle(Math.random()*window.innerWidth,Math.random()*window.innerHeight,14+Math.random()*20,randomColor(),1200+Math.random()*900);},1500);
+function firework(){const x=Math.random()*window.innerWidth;const y=Math.random()*window.innerHeight/2;for(let i=0;i<30;i++){const angle=Math.random()*2*Math.PI;const speed=2+Math.random()*3;const px=x+Math.cos(angle)*speed*30;const py=y+Math.sin(angle)*speed*30;createParticle(px,py,6+Math.random()*6,randomColor(),1200+Math.random()*800);}}
+setInterval(firework,4000);
 
-/* App Logic */
+// App logic
 const generateBtn=document.getElementById('generateBtn');
 const shareBtn=document.getElementById('shareBtn');
 const nameInput=document.getElementById('nameInput');
@@ -72,34 +84,40 @@ const wishTop=document.getElementById('wishTop');
 const wishNameEl=document.getElementById('wishName');
 const wishMessageEl=document.getElementById('wishMessage');
 const rewardNote=document.getElementById('rewardNote');
+const clickSound=document.getElementById('clickSound');
+const generateSound=document.getElementById('generateSound');
+const confettiSound=document.getElementById('confettiSound');
+const bgMusic=document.getElementById('bgMusic');
 
 generateBtn.addEventListener('click',()=>{
   const nm=nameInput.value.trim();
   if(!nm){ alert('कृपया अपना नाम लिखें'); nameInput.focus(); return; }
   wishNameEl.textContent=`💁‍♂ ${nm} की ओर से शुभ दीपावली 🌟`;
   wishTop.classList.remove('hidden'); inputArea.style.display='none'; afterArea.classList.remove('hidden');
+  generateSound.play(); confettiSound.play();
 });
 
-/* Share Function */
+// Share with server-side upload
 async function shareWish(){
+  clickSound.play();
   shareBtn.disabled=true; shareBtn.textContent='Preparing...';
   try{
     const canvas=await html2canvas(document.getElementById('uiCard'));
     const blob=await new Promise(res=>canvas.toBlob(res,'image/png'));
-    const clientId='YOUR_IMGUR_CLIENT_ID'; // Replace with your Imgur Client-ID
     const formData=new FormData();
     formData.append('image',blob);
-    const resp=await fetch('https://api.imgur.com/3/image',{
-      method:'POST', headers:{Authorization:`Client-ID ${clientId}`}, body:formData
+    const resp=await fetch('/api/upload',{
+      method:'POST',
+      body:formData
     });
     const data=await resp.json();
     if(!data.success) throw new Error('Upload failed');
-    const imageUrl=data.data.link;
+    const imageUrl=data.url;
     const waText=encodeURIComponent(`${wishNameEl.textContent}\n${wishMessageEl.innerText}\n\n${imageUrl}`);
-    const waUrl=`https://wa.me/?text=${waText}`;
-    window.open(waUrl,'_blank'); rewardNote.style.display='block';
+    window.open(`https://wa.me/?text=${waText}`,'_blank');
+    rewardNote.style.display='block';
     setTimeout(()=>rewardNote.style.display='none',3000);
-  }catch(e){console.error(e);alert('Share failed, check console');}
+  }catch(e){console.error(e);alert('Share failed');}
   finally{shareBtn.disabled=false;shareBtn.textContent='🔗 Share Wish';}
 }
 shareBtn.addEventListener('click',shareWish);
